@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gokak Falls</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="icon" href="Travely-logo.png" type="image/icon type">
+
+  <style>
+    /* Reset and Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #000000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      background-color: rgb(0, 0, 0) ;
+      transition: background 0.1s ease;
+    }
+
+    .header.scrolled {
+      background: rgba(0, 0, 0, 0.9);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav a {
+      font-size: 15px;
+      font-weight: 500;
+      color: #fff;
+      transition: color 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: #220751;
+    }
+
+    /* Hero Section */
+    .hero {
+  height: 100vh;
+  background: 
+    linear-gradient(to bottom, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 0.359) 50%, rgba(0, 0, 0, 1) 100%), 
+    linear-gradient(to top, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0.359) 20%, rgba(0, 0, 0, 1) 100%),
+    url('Gokak Falls.jpg') center/cover no-repeat;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 50px 40px 100px;
+}
+
+
+    .hero-content {
+      max-width: 600px;
+      animation: fadeInUp 1.5s ease-in-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .hero-description {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      height: 3rem;
+    }
+
+    .hero-btn {
+      padding: 15px 30px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      transition: transform 0.3s, background-color 0.3s;
+    }
+
+    .hero-btn.play {
+      background-color: #6120b7;
+      color: #fff;
+    }
+
+    .hero-btn.more-info {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+
+    .hero-btn:hover {
+      transform: scale(1.05);
+    }
+    .hero p{
+      font-family: Arial, sans-serif;
+      color: #4d4d4d;
+    }
+
+    /* Movie Section */
+    .movie-section {
+      padding: 60px 30px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .movie-slider {
+      display: flex;
+      overflow-x: auto;
+      gap: 15px;
+      scroll-behavior:x smooth; /* Smooth scroll */
+      padding: 10px 0;
+      white-space: nowrap; /* Prevent wrapping */
+    }
+
+    .movie-slider {
+      display: none;
+    }
+
+    .movie-card {
+      flex: 0 0 auto;
+      width: 180px;
+      height: 270px;
+      background-color: #222;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .movie-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .movie-card:hover {
+      transform: scale(1.1);
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .movie-title {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .modal-content {
+      position: relative;
+      background: #000;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .modal-content img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      color: #fff;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      color: #220565;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 30px;
+      text-align: center;
+      background-color: #000;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    /* Nav Bar */
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+}
+
+a:hover {
+    color: #6120b7;
+}
+
+header {
+    position: relative;
+    padding: 0 2rem;
+}
+
+.navbar {
+    width: 100%;
+    height: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar .nav ul {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.navbar .menu {
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+}
+
+.navbar .highlight {
+    display: block;
+    margin-left: 0;
+    margin-right: 1rem;
+}
+
+.highlight {
+    background: linear-gradient(90deg, #292929, rgb(5, 5, 5)) ;
+    color: #fff;
+    padding: 0.6rem 3rem;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: scale 0.2s ease;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.highlight:hover {
+    transform: scale(1.05);
+    color: #ffffff;
+}
+
+.highlight:active {
+    transform: scale(0.95);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 60px;
+    width: 250px;
+    height: 0;
+    background: rgba(0, 0, 0, 0.439);
+    backdrop-filter: blur(15px);
+    border-radius: 7px;
+    overflow: hidden;
+    display: none;
+}
+
+.dropdown-menu li {
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropdown-menu .highlight {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+
+.dropdown-menu.open {
+    height: 41rem;
+    width: 100%;
+    max-width: 100%;
+    left: 0; 
+    right: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+  background-color: transparent;
+}
+
+
+
+
+/* Movie Section */
+.movie-section {
+  padding: 60px 30px;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.movie-slider {
+  display: flex;
+  gap: 15px;
+  padding: 10px 0;
+  overflow-x: auto;  /* Allow horizontal scrolling */
+  scroll-behavior: smooth; /* Smooth scrolling */
+  -webkit-overflow-scrolling: touch; /* For smooth scrolling on mobile */
+  position: relative;
+  white-space: nowrap; /* Prevent wrapping */
+}
+
+.movie-slider::-webkit-scrollbar {
+  display: none;  /* Hide the scrollbar */
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  transform: translateY(-50%);
+}
+
+#scrollLeft {
+  left: 10px;
+}
+
+#scrollRight {
+  right: 10px;
+}
+
+.movie-card {
+  flex: 0 0 auto; /* Prevent wrapping */
+  width: 180px;
+  height: 270px;
+  background-color: #222;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.movie-card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.8);
+}
+
+.movie-title {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+/* Nav Bar Ends */
+
+/* Responsive */
+@media (max-width: 400px) {
+  #modalImage{
+      width: 20rem;
+      height: 30rem;
+      border-radius: 10px;
+    }
+
+  
+}
+
+
+
+
+
+@media (max-width: 992px) {
+    .navbar .nav ul {
+        display: none;
+    }
+    body{
+        overflow-x: hidden;
+    }
+    
+    .navbar .menu {
+        display: flex;
+    }
+    
+    .navbar .menu i {
+        display: inline-block;
+    }
+    
+    .navbar .highlight {
+        display: none;
+    }
+    
+    .dropdown-menu {
+        display: block;
+    }
+    
+    
+    .dropdown-menu .highlight {
+        display: block;
+        margin-top: 1rem;
+    }
+}
+/* Footer */
+footer {
+    background-color: #0b0b0b;
+    color: #ccc;
+    padding: 1rem;
+    margin-top: 90px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+
+   
+
+
+   /* Information Section */
+.info-section {
+  padding: 60px 20px 0px 40px;
+  background-color: #000; 
+  color: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; 
+  text-align: left; 
+  min-height: 50vh; 
+}
+
+.info-content {
+  max-width: 800px;
+  margin: 0;
+  animation: fadeInUp 1.5s ease-in-out;
+}
+
+.info-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.info-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #4d4d4d;
+}
+
+
+   /* architecture Section */
+   .architecture-section {
+  padding: 60px 20px 0px 40px;
+  background-color: #000; 
+  color: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; 
+  text-align: left; 
+  min-height: 50vh; 
+}
+
+.architecture-content {
+  max-width: 800px;
+  margin: 0;
+  animation: fadeInUp 1.5s ease-in-out;
+}
+
+.architecture-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.architecture-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #4d4d4d;
+}
+
+.small-img-container img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.small-img-container img:hover {
+    transform: scale(1.1);
+}
+
+  </style>
+</head>
+<body>
+
+
+       <!-- Header -->
+           
+       <header>
+        <div class="navbar">
+            <img src="Travely-logo.png" style="height: 4rem ;"  alt="">
+            <div class="logo">
+                
+                <a href="#" style="margin: -3rem;">Travely</a>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Hotels</a></li>
+                    <li><a href="#">Restaurants</a></li>
+                    <li><a href="Bio-web - Copy/index.html">About-Us</a></li>
+                </ul>
+                <div class="menu"><i class="fa-solid fa-bars"></i></div>
+            </div>
+            <a href="#" class="highlight">Sign-in</a>
+            <div class="dropdown-menu">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Hotels</a></li>
+                    <li><a href="#">Restaurants</a></li>
+                    <li><a href="Bio-web - Copy/index.html">About-Us</a></li>
+                    <li><a href="#" class="highlight">Sign-in</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+  <!-- Hero Section -->
+  <section class="hero" >
+    <div class="hero-content">
+      <h1 class="hero-title" style="margin-top: -10rem;">Gokak Falls</h1>
+      <p class="hero-description">The Ghataprabha river falls 52 metres (171 ft) over the sandstone cliff amidst a picturesque gorge of the rugged valley. At the crest, the horseshoe-shaped waterfall has a flood breadth of 177 metres (581 ft). Location: Gokak Falls Belgaum - 591308</p>
+      <div class="hero-buttons">
+        <button class="hero-btn play">Join</button>
+        <button class="hero-btn more-info"> More Info</button>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- architecture -->
+  <section class="architecture-section">
+    
+    <div class="architecture-content">
+      
+      <h2 class="architecture-title">OverView</h2>
+     
+      <p class="architecture-description">
+        Gokak Falls, located 6 km from Gokak town, is a picturesque waterfall named after the Goki trees found in the region. The waterfall, often compared to Niagara Falls, features a 52-meter drop over sandstone cliffs surrounded by a scenic valley. A key attraction is the 200-meter-long hanging bridge, 14 meters above the river, which offers stunning views of the falls. The site is historically significant as it was the first place in India to generate electricity in 1887. Visitors can also explore nearby temples such as the Lord Mahalingeshwara Temple, built in Chalukyan style, and enjoy nature at Kemple Park botanical gardens. Adventure seekers can hike the Yogi Kolla trail, 3 km away, or try boating on the Markandeya River, 8 km from the falls. Other nearby attractions include the Godachinmalki Waterfalls, 13 km away, and the Saundatti Yellamma Temple, 73 km away. Gokak Falls is 622 km from Bengaluru and 62 km from Belagavi, which is the nearest major city with an airport and railway station. Visitors can stay in budget hotels in Gokak town or find more options in Belagavi city.
+      </p>
+      
+    </div>
+  </section>
+
+
+   <!-- Footer -->
+   <footer>
+    <p>&copy; 2024 Travely. <br> Developed by Kishan Miskin<br>All Rights Reserved.</p>
+</footer>
+
+
+ 
+
+ 
+    
+
+ 
+</body>
+<script>
+  
+
+     // Nav Bar
+
+const toggleBtn = document.querySelector('.menu');
+const toggleBtnIcon = toggleBtn.querySelector('i');
+const dropDownMenu = document.querySelector('.dropdown-menu');
+
+toggleBtn.onclick = function () {
+dropDownMenu.classList.toggle('open');
+const isOpen = dropDownMenu.classList.contains('open');
+toggleBtnIcon.classList.toggle('fa-bars', !isOpen);
+toggleBtnIcon.classList.toggle('fa-xmark', isOpen);
+};
+
+// Nav Bar Ends
+</script>
+</html>
