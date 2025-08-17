@@ -89,6 +89,8 @@ header nav a {
         /* Text styles */
         .hero h1, .hero h2 {
             position: relative;
+            padding: 6px;
+            font-family: monospace;
             z-index: 1;
         }
 
@@ -357,6 +359,23 @@ header {
     transform: translateY(0);
 }
 
+.explorebtn {
+    background: rgba(255, 255, 255, 0.247);   /* transparent background */
+    border: none;    /* optional border so it’s visible */
+    border-radius: 8%;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #ffffff;               /* text color */
+    text-decoration: none;     /* remove underline if <a> */
+    display: inline-block;     /* make <a> behave like button */
+}
+
+.explorebtn:hover {
+    background-color: #adadad47;
+    color: #ffffff;            /* invert text color on hover */
+}
 
 
 </style>
@@ -406,6 +425,8 @@ header {
     <div class="overlay"></div>
     <h1>Explore the<br> Beauty of Belgaum</h1>
     <h2 style="font-family: 'Times New Roman', Times, serif;">Travel with Travely</h2>
+   <a href="Explore.html" class="explorebtn">Explore More</a>
+
 </section>
 
 

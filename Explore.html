@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore - Travel Discovery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #14081b 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 2000px;
+            margin: 0 auto;
+            background: rgb(18, 18, 18);
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        .header {
+            padding: 20px;
+            background: linear-gradient(to bottom, rgb(101, 18, 142), rgb(18, 18, 18));
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .user-greeting {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgb(255, 255, 255);
+
+        }
+
+        .greeting-text {
+            flex: 1;
+        }
+
+        .greeting-text p {
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        .greeting-text h2 {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #ffffff;
+        }
+
+        .main-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #f8f8f8;
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 15px;
+            background: #353535;
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            background: #404040;
+            transform: scale(1.02);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #ffffff;
+        }
+
+        /* Categories */
+        .categories {
+            margin-top: -20px;
+            padding: 19px;
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .see-all-btn {
+            color: #f6f6f6;
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .category-grid {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .category-item {
+            flex-shrink: 0;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .category-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            background: rgb(56, 56, 56);
+            color: white;
+          
+        }
+
+        .category-item:nth-child(2) .category-icon {
+            background: rgb(56, 56, 56);
+        }
+
+        .category-item:nth-child(3) .category-icon {
+            background: rgb(56, 56, 56);
+        }
+
+        .category-name {
+            font-size: 14px;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        /* Favorite Places */
+        .favorites {
+            padding: 15px;
+            margin-bottom: 100px;
+        }
+
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .place-card {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 200px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .place-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .place-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0,0,0,0.4), rgba(0,0,0,0.1));
+            z-index: 1;
+        }
+
+        .place-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .place-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            z-index: 2;
+            color: white;
+        }
+
+        .place-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .place-location {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .place-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+        }
+
+        .stars {
+            color: #FFD700;
+        }
+
+        /* Bottom Navigation (Mobile Only) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1200px;
+            background: rgb(15, 15, 15);
+            padding: 15px;
+            border-radius: 25px 25px 0 0;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .nav-items {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-item {
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 8px;
+            border-radius: 12px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: #222222;
+            transform: scale(1.1);
+        }
+
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+            color: #666;
+        }
+
+        .nav-item.active .nav-icon {
+            color: #FF6B6B;
+        }
+
+        .nav-label {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .nav-item.active .nav-label {
+            color: #FF6B6B;
+            font-weight: 600;
+        }
+
+        /* Desktop Sidebar */
+        .sidebar {
+            position: fixed;
+            left: -300px;
+            top: 0;
+            width: 300px;
+            height: 100vh;
+            background: rgb(23, 23, 23);
+            box-shadow: 2px 0 30px rgba(0,0,0,0.1);
+            transition: left 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar-header {
+            padding: 30px 25px;
+            border-bottom: 1px solid #111111;
+            background: linear-gradient(to bottom, #0d163b, rgb(23, 23, 23));
+            color: white;
+        }
+
+        .sidebar-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-subtitle {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        .sidebar-nav {
+            padding: 20px 0;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar-item:hover, .sidebar-item.active {
+            background: #202020;
+            border-left-color: #300a54;
+        }
+
+        .sidebar-item-icon {
+            font-size: 20px;
+            margin-right: 15px;
+            color: #666;
+            width: 25px;
+        }
+
+        .sidebar-item-text {
+            font-size: 16px;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgb(53, 53, 53);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                box-shadow: none;
+            }
+            
+            .header {
+                border-radius: 0;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .main-title {
+                font-size: 24px;
+            }
+
+            .places-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .place-card {
+                height: 180px;
+            }
+
+            .bottom-nav {
+                display: block;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .bottom-nav {
+                display: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .favorites {
+                margin-bottom: 50px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .places-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .place-card, .category-item {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .place-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .category-item:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .category-item:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        /* Scrollbar Styling */
+        .category-grid::-webkit-scrollbar {
+            height: 4px;
+            width: 3px;
+        }
+
+        .category-grid::-webkit-scrollbar-track {
+            background: #050505;
+            border-radius: 10px;
+        }
+
+        .category-grid::-webkit-scrollbar-thumb {
+            background: #9000ff;
+            border-radius: 8%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="user-greeting">
+                <div class="avatar"><img src="icons/Travely-logo.png" alt="" height="70px"></div>
+                <div class="greeting-text">
+                    <p>Hello, There 👋</p>
+                </div>
+                <button class="menu-btn" id="menuBtn">☰</button>
+            </div>
+            
+            <h1 class="main-title">Where do you<br>want to explore today?</h1>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search destination" id="searchInput">
+                <button class="search-btn" id="searchBtn">🔍</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="categories">
+                <div class="section-header">
+                    <h3 class="section-title">Explore</h3>
+                </div>
+                <div class="category-grid">
+                    <div class="category-item" data-category="beach">
+                        <div class="category-icon"><a href="hotell.html" title="hotel icons"></a>
+                        🏨
+                        </div>
+                        <div class="category-name">Hotel</div>
+                    </div>
+                    <div class="category-item" data-category="mountain">
+                        <div class="category-icon">⛲</div>
+                        <div class="category-name">Park</div>
+                    </div>
+                    <div class="category-item" data-category="city">
+                        <div class="category-icon">🏪 </div>
+                        <div class="category-name">Mall</div>
+                    </div>
+                    <div class="category-item" data-category="city">
+                        <div class="category-icon">🏪 </div>
+                        <div class="category-name">Mall</div>
+                    </div>
+                    <div class="category-item" data-category="city">
+                        <div class="category-icon">🏪 </div>
+                        <div class="category-name">Mall</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="favorites">
+                <div class="section-header">
+                    <h3 class="section-title">Favourite places</h3>
+                    <a href="#" class="see-all-btn">Explore</a>
+                </div>
+                <div class="places-grid">
+                    <div class="place-card" data-place="diana-mountain">
+                        <img src="Images/kamal-basti.jpg" alt="Diana Mountain" class="place-image">
+                        <div class="place-info">
+                            <h4 class="place-name">Kamal Basti</h4>
+                            <p class="place-location">📍 Belgaum, Fort Road</p>
+                            <div class="place-rating">
+                                <span class="stars">⭐⭐⭐⭐⭐</span>
+                                <span>4.8</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="place-card" data-place="fey-forest">
+                        <img src="Images/yellur-fort.jpg" alt="Fey Forest" class="place-image">
+                        <div class="place-info">
+                            <h4 class="place-name">Yellur Fort</h4>
+                            <p class="place-location">📍 Yellu Ghad</p>
+                            <div class="place-rating">
+                                <span class="stars">⭐⭐⭐⭐</span>
+                                <span>4.2</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="place-card" data-place="fey-forest">
+                        <img src="Images/yellur-fort.jpg" alt="Fey Forest" class="place-image">
+                        <div class="place-info">
+                            <h4 class="place-name">Yellur Fort</h4>
+                            <p class="place-location">📍 Yellu Ghad</p>
+                            <div class="place-rating">
+                                <span class="stars">⭐⭐⭐⭐</span>
+                                <span>4.2</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="place-card" data-place="fey-forest">
+                        <img src="Images/yellur-fort.jpg" alt="Fey Forest" class="place-image">
+                        <div class="place-info">
+                            <h4 class="place-name">Yellur Fort</h4>
+                            <p class="place-location">📍 Yellu Ghad</p>
+                            <div class="place-rating">
+                                <span class="stars">⭐⭐⭐⭐</span>
+                                <span>4.2</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <nav class="bottom-nav">
+            <div class="nav-items">
+                <div class="nav-item active">
+                    <div class="nav-icon">🏠</div>
+                    <div class="nav-label">Home</div>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">🗺️</div>
+                    <div class="nav-label">Explore</div>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">⭐</div>
+                    <div class="nav-label">Favorites</div>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">👤</div>
+                    <div class="nav-label">Profile</div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Desktop Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2 class="sidebar-title">Explore</h2>
+            <p class="sidebar-subtitle">Discover amazing places</p>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="sidebar-item active" data-section="hotels">
+                <div class="sidebar-item-icon">🏨</div>
+                <div class="sidebar-item-text">Hotels</div>
+            </div>
+            <div class="sidebar-item" data-section="parks">
+                <div class="sidebar-item-icon">🏞️</div>
+                <div class="sidebar-item-text">Parks</div>
+            </div>
+            <div class="sidebar-item" data-section="waterfalls">
+                <div class="sidebar-item-icon">💧</div>
+                <div class="sidebar-item-text">Waterfalls</div>
+            </div>
+            <div class="sidebar-item" data-section="beaches">
+                <div class="sidebar-item-icon">🏖️</div>
+                <div class="sidebar-item-text">Beaches</div>
+            </div>
+            <div class="sidebar-item" data-section="mountains">
+                <div class="sidebar-item-icon">⛰️</div>
+                <div class="sidebar-item-text">Mountains</div>
+            </div>
+            <div class="sidebar-item" data-section="restaurants">
+                <div class="sidebar-item-icon">🍽️</div>
+                <div class="sidebar-item-text">Restaurants</div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+        // DOM Elements
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        
+        // Mobile/Desktop Detection
+        const isMobile = () => window.innerWidth <= 768;
+        
+        // Sidebar Toggle
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+        });
+
+        // Close sidebar when clicking overlay
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Close sidebar on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Sidebar Navigation
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove active class from all items
+                document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+                // Add active class to clicked item
+                item.classList.add('active');
+                
+                // Get section name
+                const section = item.dataset.section;
+                console.log(`Navigating to: ${section}`);
+                
+                // Here you would typically handle navigation to different sections
+                // For demo, we'll show an alert
+                showNotification(`Exploring ${section}...`);
+                
+                // Close sidebar on mobile after selection
+                if (isMobile()) {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Search Functionality
+        const handleSearch = () => {
+            const query = searchInput.value.trim();
+            if (query) {
+                console.log(`Searching for: ${query}`);
+                showNotification(`Searching for "${query}"...`);
+                // Here you would implement actual search functionality
+            }
+        };
+
+        searchBtn.addEventListener('click', handleSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+
+        // Category Selection
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const category = item.dataset.category;
+                console.log(`Selected category: ${category}`);
+                showNotification(`Exploring ${category} destinations...`);
+                
+                // Visual feedback
+                document.querySelectorAll('.category-item').forEach(i => i.style.transform = '');
+                item.style.transform = 'scale(0.95)';
+                setTimeout(() => item.style.transform = '', 150);
+            });
+        });
+
+        // Place Card Clicks
+        document.querySelectorAll('.place-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const place = card.dataset.place;
+                console.log(`Viewing details for: ${place}`);
+                showNotification(`Loading details for ${place.replace('-', ' ')}...`);
+            });
+        });
+
+        // Bottom Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove active class from all nav items
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                // Add active class to clicked item
+                item.classList.add('active');
+                
+                const label = item.querySelector('.nav-label').textContent;
+                console.log(`Navigated to: ${label}`);
+                showNotification(`Navigated to ${label}`);
+            });
+        });
+
+        // Notification System
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #333;
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                z-index: 10000;
+                font-size: 14px;
+                animation: slideIn 0.3s ease;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            `;
+            
+            // Add slide-in animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Smooth scroll for better UX
+        document.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 2px 30px rgba(0,0,0,0.15)';
+            } else {
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (!isMobile() && sidebar.classList.contains('open')) {
+                // Keep sidebar behavior consistent on desktop
+            }
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Travel Exploration Website loaded successfully!');
+            showNotification('Welcome to your travel exploration journey! 🌍');
+        });
+
+        // Add touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 100;
+            const diff = touchEndX - touchStartX;
+            
+            if (isMobile()) {
+                // Swipe right to open sidebar
+                if (diff > swipeThreshold && touchStartX < 50) {
+                    sidebar.classList.add('open');
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+                // Swipe left to close sidebar
+                if (diff < -swipeThreshold && sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
+       
+    </script>
+</body>
+</html>

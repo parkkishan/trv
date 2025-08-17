@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore - Travel Discovery</title>
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #000000 0%, #14081b 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Kanit', Arial, sans-serif;
+        }
+        .container {
+            background: #181818;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            padding: 2.5rem 2rem 2rem 2rem;
+            min-width: 320px;
+            width: 90vw;
+            max-width: 400px;
+            text-align: center;
+        }
+        .username-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.7s;
+        }
+        .username-form label {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .username-form input {
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            border: none;
+            font-size: 1.1rem;
+            background: #232323;
+            color: #fff;
+            outline: none;
+            transition: box-shadow 0.2s;
+        }
+        .username-form input:focus {
+            box-shadow: 0 0 0 2px #a259f7;
+        }
+        .username-form button {
+            padding: 0.8rem 0;
+            border-radius: 8px;
+            border: none;
+            background: linear-gradient(90deg, #a259f7 0%, #1ed760 100%);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .username-form button:hover {
+            background: linear-gradient(90deg, #1ed760 0%, #a259f7 100%);
+            transform: scale(1.03);
+        }
+        .greeting {
+            margin-top: 1.5rem;
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            animation: fadeIn 0.7s;
+        }
+        .edit-btn {
+            margin-top: 1.2rem;
+            background: none;
+            border: none;
+            color: #a259f7;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px);}
+            to   { opacity: 1; transform: translateY(0);}
+        }
+        @media (max-width: 500px) {
+            .container { padding: 1.5rem 0.5rem; }
+            .greeting { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form class="username-form" id="usernameForm">
+            <label for="usernameInput">Enter your name to start exploring:</label>
+            <input type="text" id="usernameInput" maxlength="20" autocomplete="off" required placeholder="Your name">
+            <button type="submit">Continue</button>
+        </form>
+        <div class="greeting" id="greeting" style="display:none;">
+            Hello, <span id="displayName"></span> 👋
+            <br>
+            <button class="edit-btn" id="editBtn">Change Name</button>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById('usernameForm');
+        const input = document.getElementById('usernameInput');
+        const greeting = document.getElementById('greeting');
+        const displayName = document.getElementById('displayName');
+        const editBtn = document.getElementById('editBtn');
+
+        // Show greeting if name exists
+        function showGreeting(name) {
+            displayName.textContent = name;
+            greeting.style.display = '';
+            form.style.display = 'none';
+        }
+
+        // Show form to enter name
+        function showForm() {
+            greeting.style.display = 'none';
+            form.style.display = '';
+            input.value = '';
+            input.focus();
+        }
+
+        // On page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const name = localStorage.getItem('travely_username');
+            if (name) {
+                showGreeting(name);
+            } else {
+                showForm();
+            }
+        });
+
+        // On form submit
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const name = input.value.trim();
+            if (name) {
+                localStorage.setItem('travely_username', name);
+                showGreeting(name);
+            }
+        });
+
+        // Edit name
+        editBtn.addEventListener('click', () => {
+            showForm();
+        });
+    </script>
+</body>
+</html>
