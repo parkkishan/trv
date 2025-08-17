@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rajhunsgad Yellur-Fort</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="icon" href="Travely-logo.png" type="image/icon type">
+
+  <style>
+    /* Reset and Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      outline: none !important;
+      box-shadow: none !important;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #000000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      background-color: rgb(0, 0, 0) ;
+      transition: background 0.1s ease;
+    }
+
+    .header.scrolled {
+      background: rgba(0, 0, 0, 0.9);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav a {
+      font-size: 15px;
+      font-weight: 500;
+      color: #fff;
+      transition: color 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: #220751;
+    }
+
+    /* Hero Section */
+    /* Hero Section */
+.hero {
+  height: 100vh;
+  background: url('kamal-basti.jpg') center/cover no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 50px 40px 100px;
+  position: relative;
+  transition: background 2s ease-in; /* Transition for background image change */
+}
+
+/* Add fade-out and fade-in class for smoother background changes */
+.hero.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+.hero.fade-in {
+  
+  opacity: 1;
+  transition: opacity 1s ease-in;
+}
+
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .hero-description {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      height: 3rem;
+    }
+
+    .hero-btn {
+      padding: 15px 30px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      transition: transform 0.3s, background-color 0.3s;
+    }
+
+    .hero-btn.play {
+      background-color: #6120b7;
+      color: #fff;
+    }
+
+    .hero-btn.more-info {
+      background-color: rgba(66, 66, 66, 0.43);
+      color: #fff;
+    }
+
+    .hero-btn:hover {
+      transform: scale(1.05);
+    }
+    .hero p{
+      font-family: Arial, sans-serif;
+      color: #888888;
+    }
+
+    /* Movie Section */
+    .movie-section {
+      padding: 60px 30px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .movie-slider {
+      display: flex;
+      overflow-x: auto;
+      gap: 15px;
+      scroll-behavior:x smooth; /* Smooth scroll */
+      padding: 10px 0;
+      white-space: nowrap; /* Prevent wrapping */
+    }
+
+    .movie-slider {
+      display: none;
+    }
+
+    .movie-card {
+      flex: 0 0 auto;
+      width: 180px;
+      height: 270px;
+      background-color: #222;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .movie-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .movie-card:hover {
+      transform: scale(1.1);
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .movie-title {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .modal-content {
+      position: relative;
+      background: #000;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .modal-content img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      color: #fff;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      color: #220565;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 30px;
+      text-align: center;
+      background-color: #000;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    /* Nav Bar */
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+}
+
+a:hover {
+    color: #6120b7;
+}
+
+header {
+    position: relative;
+    padding: 0 2rem;
+}
+
+.navbar {
+    width: 100%;
+    height: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar .nav ul {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.navbar .menu {
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+}
+
+.navbar .highlight {
+    display: block;
+    margin-left: 0;
+    margin-right: 1rem;
+}
+
+.highlight {
+    background: linear-gradient(160deg, #6407c7, rgb(5, 5, 5)) ;
+    color: #fff;
+    padding: 0.6rem 3rem;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: scale 0.2s ease;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.highlight:hover {
+    transform: scale(1.05);
+    color: #ffffff;
+}
+
+.highlight:active {
+    transform: scale(0.95);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 60px;
+    width: 250px;
+    height: 0;
+    background: rgba(0, 0, 0, 0.439);
+    backdrop-filter: blur(15px);
+    border-radius: 7px;
+    overflow: hidden;
+    display: none;
+}
+
+.dropdown-menu li {
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropdown-menu .highlight {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+
+.dropdown-menu.open {
+    height: 41rem;
+    width: 100%;
+    max-width: 100%;
+    left: 0; 
+    right: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+  background-color: transparent;
+}
+
+
+
+
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  transform: translateY(-50%);
+}
+
+#scrollLeft {
+  left: 10px;
+}
+
+#scrollRight {
+  right: 10px;
+}
+
+.movie-card {
+  flex: 0 0 auto; /* Prevent wrapping */
+  width: 180px;
+  height: 270px;
+  background-color: #222;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.movie-card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.8);
+}
+
+.movie-title {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+/* Nav Bar Ends */
+
+/* Responsive */
+@media (max-width: 400px) {
+  #modalImage{
+      width: 20rem;
+      height: 30rem;
+      border-radius: 10px;
+    }
+
+  
+}
+
+
+
+
+
+@media (max-width: 992px) {
+    .navbar .nav ul {
+        display: none;
+    }
+    body{
+        overflow-x: hidden;
+    }
+    
+    .navbar .menu {
+        display: flex;
+    }
+    
+    .navbar .menu i {
+        display: inline-block;
+    }
+    
+    .navbar .highlight {
+        display: none;
+    }
+    
+    .dropdown-menu {
+        display: block;
+    }
+    
+    
+    .dropdown-menu .highlight {
+        display: block;
+        margin-top: 1rem;
+    }
+}
+/* Footer */
+footer {
+    background-color: #0b0b0b;
+    color: #ccc;
+    padding: 1rem;
+    margin-top: 90px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+
+   
+
+
+   /* Information Section */
+.info-section {
+  padding: 60px 20px 0px 40px;
+  background-color: #000; 
+  color: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; 
+  text-align: left; 
+  min-height: 50vh; 
+}
+
+.info-content {
+  max-width: 800px;
+  margin: 0;
+  animation: fadeInUp 1.5s ease-in-out;
+}
+
+.info-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.info-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #888888;
+}
+
+
+   /* architecture Section */
+   .architecture-section {
+  padding: 60px 20px 0px 40px;
+  background-color: #000; 
+  color: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; 
+  text-align: left; 
+  min-height: 50vh; 
+}
+
+.architecture-content {
+  max-width: 800px;
+  margin: 0;
+  animation: fadeInUp 1.5s ease-in-out;
+}
+
+.architecture-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.architecture-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #888888;
+}
+
+/* Styles for small images */
+.small-img-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 19px;
+  padding: 0px 0px 40px; /* Spacing from hero-description */
+  flex-wrap: wrap; /* Allow images to wrap on smaller screens */
+}
+
+.small-img-container img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.small-img-container img:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 500px) {
+  .small-img-container {
+    flex-direction: row;
+    align-items: center; /* Center the images for smaller screens */
+    gap: 20px;
+  }
+}
+
+/* Modal Styles */
+.modal {
+  display: none; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  background: #00000093;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 10px;
+}
+
+.close-btn {
+  position: absolute;
+  top: -20px;
+  right: -5px;
+  font-size: 4rem;
+  color: #fff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #6120b7;
+}
+
+/* Animation for Modal */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal.show {
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+
+
+
+/* Overlay (Black Fade & Blur Effect) */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  background: rgba(0, 0, 0, 0.86); /* Black fade */
+  backdrop-filter: blur(90px); /* Background blur */
+  z-index: 1000;
+}
+/* Modal Container (Scrollable) */
+.modal1 {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  padding: 80px;
+  height: 120rem;
+  max-height: 80vh;
+  border-radius: 12px;
+  text-align: center;
+  color: #fff;
+  z-index: 2000;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.modal1 h1,
+.modal1 h2,
+.modal1 h3 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.modal1 p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: none;
+}
+
+
+.modal1 button {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #fff;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  min-width: 10px;
+}
+
+.modal1 button:hover {
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+
+
+
+/* Close Button */
+.close-btn1 {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: #fff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.close-btn1:hover {
+  color: #000000;
+}
+
+/* Prevent Background Scrolling */
+.modal1-open {
+  overflow-x: hidden;
+}
+
+
+
+
+
+
+
+/* Animation for the "ease-in-up" */
+@keyframes easeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-title, #hero-des, .small-img-container img, .hero-buttons {
+  animation: easeInUp 1s forwards;
+}
+
+.hero-title {
+  animation-delay: 0.9s;
+  margin-top: 20px;
+}
+
+#hero-des {
+  animation-delay: 0.9s;
+  margin-top: 20px;
+}
+
+.small-img-container img {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.small-img-container img:nth-child(1) {
+  animation-delay: 0.4s;
+}
+
+.small-img-container img:nth-child(2) {
+  animation-delay: 0.8s;
+}
+
+.small-img-container img:nth-child(3) {
+  animation-delay: 1.2s;
+}
+
+.small-img-container img:nth-child(4) {
+  animation-delay: 1.4s;
+}
+
+.hero-buttons {
+  animation-delay: 0.9s;
+}
+
+  </style>
+</head>
+<body>
+
+
+       <!-- Header -->
+           
+       <header>
+        <div class="navbar">
+            <img src="Travely-logo.png" style="height: 4rem ;"  alt="">
+            <div class="logo">
+                
+                <a href="index.html" style="margin: -3rem;">Travely</a>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="#">Hotels</a></li>
+                    <li><a href="#">Restaurants</a></li>
+                    <li><a href="Bio-web - Copy/index.html">About-Us</a></li>
+                </ul>
+                <div class="menu"><i class="fa-solid fa-bars"></i></div>
+            </div>
+            <a href="#" class="highlight">Sign-in</a>
+            <div class="dropdown-menu">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="#">Hotels</a></li>
+                    <li><a href="#">Restaurants</a></li>
+                    <li><a href="Bio-web - Copy/index.html">About-Us</a></li>
+                    <li><a href="#" class="highlight">Sign-in</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+  <!-- Hero Section -->
+  <section class="hero" >
+    <div class="main">
+    <div class="hero-content">
+      <h1 class="hero-title" style="margin-top: -10rem; ">Rajhunsgad Fort</h1>
+      <p class="hero-description" id="hero-des">Yellurgad Fort (also known as Rajhansgad or Yellur Fort)<br> dominates Belagavi's skyline <a href="https://www.google.com/maps/place/RajhansgarhYellur+Fort+(Belagavi)/@15.7570903,74.5239242,17z/data=!3m1!4b1!4m6!3m5!1s0x3bbf68ebb7724609:0x33963123b85bfede!8m2!3d15.7570903!4d74.5264991!16s%2Fg%2F11g9vwcf3q?entry=ttu&g_ep=EgoyMDI1MDEyOS4xIKXMDSoASAFQAw%3D%3D">Location:QG4G+RHQ, Belagavi, Karnataka 590005</a></p>
+      
+      <div class="small-img-container">
+        
+        <img src="yellur-fort3.jpg" alt="Image 3">
+        <img src="yellur-fort4.jpg" alt="">
+        <img src="yellur-fort2.jpg" alt="">
+        <img src="yellur-fort6.jpg" alt="Image 4">
+      </div>
+      <div class="hero-buttons">
+        <button class="hero-btn play">Join</button>
+        <button class="hero-btn more-info"> More Info</button>
+      </div>
+    </div>
+    </div>
+  </section>
+  
+
+
+<!-- Overlay for background blur & fade -->
+<div id="overlay" class="overlay"></div>
+
+<!-- Join Popup -->
+<div id="joinPopup" class="modal1">
+  <div class="modal1-content">
+    <button class="close-btn1" id="joinClose">&times;</button>
+    <h2>Join Travely</h2><br><br>
+    <p ><a href="https://whatsapp.com/channel/0029Vb47qmR1iUxei5G5Cf3Z" id="channel">Whatsapp Channel</a></p>
+  </div>
+</div>
+
+
+
+
+<!-- More Info Popup -->
+<div id="infoPopup" class="modal1">
+  <div class="modal1-content">
+    <button class="close-btn1" id="infoClose">&times;</button>
+    <h2>More about Yellur-Fort</h2><br>
+    <p>Yellur Fort, also known as Rajhunsgad, is a historic fort located on a hilltop near Belagavi. It was mainly built as a watchtower to keep an eye on enemy movements from Goa and Karwar. Due to its high elevation, soldiers could easily spot any approaching threats from miles away.
+
+      The fort is situated in Yellur village, which lies in a fertile region of the Western Ghats. Surrounding areas like Sulebhavi-Balekundri, Ambewadi, and Yellur are known for their rich agricultural produce, including paddy, lentils, vegetables, and pulses. The hill itself contains bauxite, a mineral used in making aluminum, which gives the soil a unique white shine.
+      
+      Today, Yellur Fort is an interesting offbeat destination for travelers. Visitors can either hike up the hill to enjoy its beauty and history or drive up to the main entrance. The fort offers stunning views of the countryside and a glimpse into the region’s past.
+      
+      <br><br>History and Importance :<br><br>
+      Yellur Fort has seen many battles and rulers over the centuries. It was closely linked to Belagavi Fort and played an important role in protecting the region.
+      
+     <br><br> Major Battles :<br>
+      The fort was attacked three times:
+      Once by the Nawabs of Savanoor against the Peshwas.
+      Another time by Tipu Sultan’s army against the Peshwas.
+      A third time by Bhimgad Fort forces against Rajhunsgad defenders.
+      During British rule, around 100 soldiers were stationed here for security.
+      <br><br>Smart Design for Protection :<br>
+      The entrance is tricky—you have to take a turn before entering. This allowed soldiers to see anyone approaching from different angles.
+      The fort walls are strong and have peepholes for guards to watch over the surroundings.
+      There is a special binocular window where a soldier could see two different directions at the same time.
+      The fort has secret exit routes, small passageways that let soldiers escape without being noticed if the fort was attacked.
+      <br><br>Legends and Mysteries :<br>
+      One of the most fascinating stories about Yellur Fort is that it may have a hidden underground tunnel connecting it to Belagavi Fort. People believe this tunnel was used for secret movements during wars. Today, a bush-covered depression with loose stones is said to be its entrance, though it remains unexplored.
+      
+     <br><br> Main Attractions Inside the Fort<br><br>
+      Grand Entrance – A cleverly designed doorway where guards could spot intruders easily.
+      Watchtower and Walls – Strong walls with peepholes and a special binocular window for better defense.
+      The Well – A deep well inside the fort, once used as a main water source. It has stone steps, arches, and a pulley system, now secured with an iron grill.
+      Shiva Temple – A small but sacred temple inside the fort, recently renovated.
+      Granary and Soldier Quarters – Ruins of a storage area and the remains of rooms where soldiers once stayed.</p>
+  </div>
+</div>
+
+
+
+
+ 
+
+
+  <!-- History-->
+  <section class="architecture-section">
+    
+    <div class="architecture-content">
+      
+      <h2 class="architecture-title">OverView</h2>
+     
+      <p class="architecture-description">
+        Perched atop a scenic hillock near Belagavi, Yellur Fort—also known as Rajhunsgad—stands as a silent sentinel of history. Once an essential watchtower, this fort played a crucial role in safeguarding the region by spotting and preventing enemy advances from Goa and Karwar. The fort’s elevated position offered a strategic advantage, allowing guards to detect approaching threats from miles away.
+
+Yellur village, where the fort is located, is part of a fertile plateau nestled in the Western Ghats. The surrounding areas of Sulebhavi-Balekundri, Ambewadi, and Yellur are known for their rich agricultural yield, producing paddy, lentils, vegetables, and pulses. The hill itself has a unique composition, with traces of bauxite—a key ore used in aluminum production—giving the soil a distinctive white shimmer.
+
+Today, Yellur Fort remains an offbeat yet fascinating destination for travelers, offering a mix of history, architecture, and breathtaking views of the countryside. Visitors can either hike up the hill, experiencing the fort’s historic charm firsthand, or take a road leading directly to its entrance.
+      </p>
+      
+    </div>
+  </section>
+
+
+  <section class="architecture-section">
+    
+    <div class="architecture-content">
+      
+      <h2 class="architecture-title">History</h2>
+     
+      <p class="architecture-description">
+        The history of Yellur Fort is deeply intertwined with the legacy of Belagavi Fort. Over the centuries, it has witnessed multiple battles, serving as a crucial outpost for various rulers who sought to control the region.
+
+<br>1. Wars and Conflicts :<br>
+
+The fort withstood three significant wars:
+A battle between the Nawabs of Savanoor and the Peshwas.
+A conflict between Tipu Sultan’s forces and the Peshwas.
+A struggle involving the officials of Bhimgad Fort and Rajhunsgad forces.
+During British rule, around 100 soldiers were stationed here to defend the stronghold.
+<br>2. Strategic Design :<br>
+
+The fort’s entrance is designed in a way that requires visitors to take a turn before stepping inside. This ensured that guards could monitor any approaching individuals from multiple directions.
+The strong outer walls, lined with watchpoints and small hidden exits, allowed defenders to escape in times of emergency.
+A well-placed binocular window enabled guards to observe two opposite directions simultaneously.
+<br>3. Legends and Secrets :<br>
+
+There are stories about an underground tunnel connecting Yellur Fort to Belagavi Fort. Though the tunnel’s entrance is now covered by thick bushes and loose stones, many believe it once provided a hidden escape route.
+      </p>
+      
+    </div>
+  </section>
+
+  <div class="modal">
+    <div class="modal-content">
+      <img id="modalImage" src="" alt="Modal Image">
+      <button class="close-btn">&times;</button>
+    </div>
+  </div>
+  
+
+
+   <!-- Footer -->
+   <footer>
+    <p>&copy; 2025 Travely. <br> Developed by Kishan Miskin<br>All Rights Reserved.</p>
+</footer>
+
+
+ 
+
+ 
+    
+
+ 
+</body>
+<script>
+  
+
+     // Nav Bar
+
+const toggleBtn = document.querySelector('.menu');
+const toggleBtnIcon = toggleBtn.querySelector('i');
+const dropDownMenu = document.querySelector('.dropdown-menu');
+
+toggleBtn.onclick = function () {
+dropDownMenu.classList.toggle('open');
+const isOpen = dropDownMenu.classList.contains('open');
+toggleBtnIcon.classList.toggle('fa-bars', !isOpen);
+toggleBtnIcon.classList.toggle('fa-xmark', isOpen);
+};
+
+// Nav Bar Ends
+const smallImages = document.querySelectorAll('.small-img-container img');
+const modal = document.querySelector('.modal');
+const modalImage = document.querySelector('#modalImage');
+const closeButton = document.querySelector('.close-btn');
+
+smallImages.forEach(img => {
+  img.addEventListener('click', () => {
+    modalImage.src = img.src;
+    modal.classList.add('show'); // Add animation class
+    modal.style.display = 'flex';
+  });
+});
+
+closeButton.addEventListener('click', () => {
+  modal.classList.remove('show'); // Remove animation class
+  setTimeout(() => {
+    modal.style.display = 'none';
+  }, 300); // Match the animation duration
+});
+
+
+
+
+let currentBackground = 0;
+const backgrounds = [
+  'yellur-fort3.jpg',
+  'yellur-fort.jpg',
+  'yellur-fort1.jfif',
+  'yellur-fort2.jpg',
+  'yellur-fort4.jpg',
+  'yellur-fort5.jpg',
+  'yellur-fort6.jpg'
+  
+];
+
+const hero = document.querySelector('.hero');
+
+// Function to change the background with fade effect
+function changeBackground() {
+  // Add fade-out class to start fading out the hero element
+  hero.classList.add('fade-out');
+
+  // Wait for the fade-out to finish before changing the background
+  setTimeout(() => {
+    // Change the background image with the gradient overlay
+    currentBackground = (currentBackground + 1) % backgrounds.length;
+    hero.style.backgroundImage = `
+      linear-gradient(to top, rgba(0, 0, 0, 0) -10%, rgba(0, 0, 0, 0.359) -10%, rgba(0, 0, 0, 1) 100%),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.359) 80%, rgba(0, 0, 0, 1) 100%),
+      url('${backgrounds[currentBackground]}')`;
+    
+    // Remove fade-out class and add fade-in for smooth transition
+    hero.classList.remove('fade-out');
+    hero.classList.add('fade-in');
+  }, 1000); // Timeout duration should match the fade-out animation duration
+}
+
+// Set an interval to change the background every 5 seconds
+setInterval(changeBackground, 5000); // Change background every 5000 milliseconds (5 seconds)
+
+// Initial background change
+changeBackground();
+
+
+
+
+
+
+
+
+
+var joinPopup = document.getElementById("joinPopup");
+  var infoPopup = document.getElementById("infoPopup");
+
+  var playBtn = document.querySelector(".hero-btn.play");
+  var moreInfoBtn = document.querySelector(".hero-btn.more-info");
+
+  var joinClose = document.getElementById("joinClose");
+  var infoClose = document.getElementById("infoClose");
+
+  // When the "Join" button is clicked
+  playBtn.onclick = function() {
+    joinPopup.style.display = "block";
+  }
+
+  // When the "More Info" button is clicked
+  moreInfoBtn.onclick = function() {
+    infoPopup.style.display = "block";
+  }
+
+  // Close the "Join" popup when the "X" is clicked
+  joinClose.onclick = function() {
+    joinPopup.style.display = "none";
+  }
+
+  // Close the "More Info" popup when the "X" is clicked
+  infoClose.onclick = function() {
+    infoPopup.style.display = "none";
+  }
+
+  // Close the modals when clicking outside of them
+  window.onclick = function(event) {
+    if (event.target == joinPopup) {
+      joinPopup.style.display = "none";
+    } else if (event.target == infoPopup) {
+      infoPopup.style.display = "none";
+    }
+  }
+
+
+
+// Function to open a modal
+function openModal(modalId) {
+  var modal = document.getElementById(modalId);
+  var overlay = document.getElementById("overlay");
+
+  if (modal) {
+    modal.style.display = "flex"; // Show modal
+    overlay.style.display = "block"; // Show overlay
+    document.body.classList.add("modal-open");
+  }
+}
+
+// Function to close all modals
+function closeModal() {
+  var modals = document.querySelectorAll(".modal1");
+  var overlay = document.getElementById("overlay");
+
+  modals.forEach(modal => modal.style.display = "none");
+  overlay.style.display = "none";
+  document.body.classList.remove("modal-open");
+}
+
+// Event listeners for close buttons
+document.getElementById("joinClose").addEventListener("click", closeModal);
+document.getElementById("infoClose").addEventListener("click", closeModal);
+document.getElementById("overlay").addEventListener("click", closeModal);
+
+
+</script>
+</html>

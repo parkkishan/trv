@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ramakrishna Mission Ashrama</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="icon" href="Travely-logo.png" type="image/icon type">
+
+  <style>
+    /* Reset and Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      outline: none !important;
+      box-shadow: none !important;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #000000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      background-color: rgb(0, 0, 0) ;
+      transition: background 0.1s ease;
+    }
+
+    .header.scrolled {
+      background: rgba(0, 0, 0, 0.9);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav a {
+      font-size: 15px;
+      font-weight: 500;
+      color: #fff;
+      transition: color 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: #220751;
+    }
+
+    /* Hero Section */
+    /* Hero Section */
+.hero {
+  height: 100vh;
+  background: url('kamal-basti.jpg') center/cover no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 50px 40px 100px;
+  position: relative;
+  transition: background 2s ease-in; /* Transition for background image change */
+}
+
+/* Add fade-out and fade-in class for smoother background changes */
+.hero.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+.hero.fade-in {
+  
+  opacity: 1;
+  transition: opacity 1s ease-in;
+}
+
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .hero-description {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      height: 3rem;
+    }
+
+    .hero-btn {
+      padding: 15px 30px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      transition: transform 0.3s, background-color 0.3s;
+    }
+
+    .hero-btn.play {
+      background-color: #6120b7;
+      color: #fff;
+    }
+
+    .hero-btn.more-info {
+      background-color: rgba(66, 66, 66, 0.43);
+      color: #fff;
+    }
+
+    .hero-btn:hover {
+      transform: scale(1.05);
+    }
+    .hero p{
+      font-family: Arial, sans-serif;
+      color: #888888;
+    }
+
+    /* Movie Section */
+    .movie-section {
+      padding: 60px 30px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .movie-slider {
+      display: flex;
+      overflow-x: auto;
+      gap: 15px;
+      scroll-behavior:x smooth; /* Smooth scroll */
+      padding: 10px 0;
+      white-space: nowrap; /* Prevent wrapping */
+    }
+
+    .movie-slider {
+      display: none;
+    }
+
+    .movie-card {
+      flex: 0 0 auto;
+      width: 180px;
+      height: 270px;
+      background-color: #222;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .movie-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .movie-card:hover {
+      transform: scale(1.1);
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .movie-title {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .modal-content {
+      position: relative;
+      background: #000;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .modal-content img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      color: #fff;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      color: #220565;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 30px;
+      text-align: center;
+      background-color: #000;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    /* Nav Bar */
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+}
+
+a:hover {
+    color: #6120b7;
+}
+
+header {
+    position: relative;
+    padding: 0 2rem;
+}
+
+.navbar {
+    width: 100%;
+    height: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar .nav ul {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.navbar .menu {
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+}
+
+.navbar .highlight {
+    display: block;
+    margin-left: 0;
+    margin-right: 1rem;
+}
+
+.highlight {
+    background: linear-gradient(160deg, #6407c7, rgb(5, 5, 5)) ;
+    color: #fff;
+    padding: 0.6rem 3rem;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: scale 0.2s ease;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.highlight:hover {
+    transform: scale(1.05);
+    color: #ffffff;
+}
+
+.highlight:active {
+    transform: scale(0.95);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 60px;
+    width: 250px;
+    height: 0;
+    background: rgba(0, 0, 0, 0.439);
+    backdrop-filter: blur(15px);
+    border-radius: 7px;
+    overflow: hidden;
+    display: none;
+}
+
+.dropdown-menu li {
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropdown-menu .highlight {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+
+.dropdown-menu.open {
+    height: 41rem;
+    width: 100%;
+    max-width: 100%;
+    left: 0; 
+    right: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+  background-color: transparent;
+}
+
+
+
+
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  transform: translateY(-50%);
+}
+
+#scrollLeft {
+  left: 10px;
+}
+
+#scrollRight {
+  right: 10px;
+}
+
+.movie-card {
+  flex: 0 0 auto; /* Prevent wrapping */
+  width: 180px;
+  height: 270px;
+  background-color: #222;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.movie-card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.8);
+}
+
+.movie-title {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+/* Nav Bar Ends */
+
+/* Responsive */
+@media (max-width: 400px) {
+  #modalImage{
+      width: 20rem;
+      height: 30rem;
+      border-radius: 10px;
+    }
+
+  
+}
+
+
+
+
+
+@media (max-width: 992px) {
+    .navbar .nav ul {
+        display: none;
+    }
+    body{
+        overflow-x: hidden;
+    }
+    
+    .navbar .menu {
+        display: flex;
+    }
+    
+    .navbar .menu i {
+        display: inline-block;
+    }
+    
+    .navbar .highlight {
+        display: none;
+    }
+    
+    .dropdown-menu {
+        display: block;
+    }
+    
+    
+    .dropdown-menu .highlight {
+        display: block;
+        margin-top: 1rem;
+    }
+}
+/* Footer */
+footer {
+    background-color: #0b0b0b;
+    color: #ccc;
+    padding: 1rem;
+    margin-top: 90px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+
+   
+
+
+   /* Information Section */
+.info-section {
+  padding: 60px 20px 0px 40px;
+  background-color: #000; 
+  color: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; 
+  text-align: left; 
+  min-height: 50vh; 
+}
+
+.info-content {
+  max-width: 800px;
+  margin: 0;
+  animation: fadeInUp 1.5s ease-in-out;
+}
+
+.info-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.info-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #888888;
+}
+
+
+   /* architecture Section */
+   .architecture-section {
+  padding: 60px 20px 0px 40px;
+  background-color: #000; 
+  color: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; 
+  text-align: left; 
+  min-height: 50vh; 
+}
+
+.architecture-content {
+  max-width: 800px;
+  margin: 0;
+  animation: fadeInUp 1.5s ease-in-out;
+}
+
+.architecture-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.architecture-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #888888;
+}
+
+/* Styles for small images */
+.small-img-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 19px;
+  padding: 0px 0px 40px; /* Spacing from hero-description */
+  flex-wrap: wrap; /* Allow images to wrap on smaller screens */
+}
+
+.small-img-container img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.small-img-container img:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 500px) {
+  .small-img-container {
+    flex-direction: row;
+    align-items: center; /* Center the images for smaller screens */
+    gap: 20px;
+  }
+}
+
+/* Modal Styles */
+.modal {
+  display: none; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  background: #00000093;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 10px;
+}
+
+.close-btn {
+  position: absolute;
+  top: -20px;
+  right: -5px;
+  font-size: 4rem;
+  color: #fff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #6120b7;
+}
+
+/* Animation for Modal */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal.show {
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+
+
+
+/* Overlay (Black Fade & Blur Effect) */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  background: rgba(0, 0, 0, 0.86); /* Black fade */
+  backdrop-filter: blur(90px); /* Background blur */
+  z-index: 1000;
+}
+/* Modal Container (Scrollable) */
+.modal1 {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  padding: 80px;
+  height: 120rem;
+  max-height: 80vh;
+  border-radius: 12px;
+  text-align: center;
+  color: #fff;
+  z-index: 2000;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.modal1 h1,
+.modal1 h2,
+.modal1 h3 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.modal1 p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: none;
+}
+
+
+.modal1 button {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #fff;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  min-width: 10px;
+}
+
+.modal1 button:hover {
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+
+
+
+/* Close Button */
+.close-btn1 {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: #fff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.close-btn1:hover {
+  color: #000000;
+}
+
+/* Prevent Background Scrolling */
+.modal1-open {
+  overflow-x: hidden;
+}
+
+
+
+
+
+
+
+/* Animation for the "ease-in-up" */
+@keyframes easeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-title, #hero-des, .small-img-container img, .hero-buttons {
+  animation: easeInUp 1s forwards;
+}
+
+.hero-title {
+  animation-delay: 0.9s;
+  margin-top: 20px;
+}
+
+#hero-des {
+  animation-delay: 0.9s;
+  margin-top: 20px;
+}
+
+.small-img-container img {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.small-img-container img:nth-child(1) {
+  animation-delay: 0.4s;
+}
+
+.small-img-container img:nth-child(2) {
+  animation-delay: 0.8s;
+}
+
+.small-img-container img:nth-child(3) {
+  animation-delay: 1.2s;
+}
+
+.small-img-container img:nth-child(4) {
+  animation-delay: 1.4s;
+}
+
+.hero-buttons {
+  animation-delay: 0.9s;
+}
+
+  </style>
+</head>
+<body>
+
+
+       <!-- Header -->
+           
+       <header>
+        <div class="navbar">
+            <img src="Travely-logo.png" style="height: 4rem ;"  alt="">
+            <div class="logo">
+                
+                <a href="index.html" style="margin: -3rem;">Travely</a>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="#">Hotels</a></li>
+                    <li><a href="#">Restaurants</a></li>
+                    <li><a href="Bio-web - Copy/index.html">About-Us</a></li>
+                </ul>
+                <div class="menu"><i class="fa-solid fa-bars"></i></div>
+            </div>
+            <a href="#" class="highlight">Sign-in</a>
+            <div class="dropdown-menu">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="#">Hotels</a></li>
+                    <li><a href="#">Restaurants</a></li>
+                    <li><a href="Bio-web - Copy/index.html">About-Us</a></li>
+                    <li><a href="#" class="highlight">Sign-in</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+  <!-- Hero Section -->
+  <section class="hero" >
+    <div class="main">
+    <div class="hero-content">
+      <h1 class="hero-title" style="margin-top: -10rem; ">R.K. Ashrama</h1>
+      <p class="hero-description" id="hero-des">Ramakrishna Ashrama is a chain of Hindu monasteries set up by<br> Sri Ramakrishna Paramahamsa <a href="https://www.google.com/maps/place/Ramakrishna+Mission+Ashrama/@15.8595733,74.5193815,17z/data=!3m1!4b1!4m6!3m5!1s0x3bbf66b8904f7b27:0x54dc2561bdf2fc92!8m2!3d15.8595733!4d74.5219564!16s%2Fg%2F1tff61hr?entry=ttu&g_ep=EgoyMDI1MDEyOS4xIKXMDSoASAFQAw%3D%3D">Location: Fort Rd, Fort Area, Belagavi,<br> Karnataka 590016</a></p>
+      
+      <div class="small-img-container">
+        
+        <img src="mission-ashram.jpg" alt="Image 3">
+        <img src="mission-ashram3.jpg" alt="">
+        <img src="mission-ashram4.jpg" alt="">
+        <img src="mission-ashram6.jpg" alt="Image 4">
+      </div>
+      <div class="hero-buttons">
+        <button class="hero-btn play">Join</button>
+        <button class="hero-btn more-info"> More Info</button>
+      </div>
+    </div>
+    </div>
+  </section>
+  
+
+
+<!-- Overlay for background blur & fade -->
+<div id="overlay" class="overlay"></div>
+
+<!-- Join Popup -->
+<div id="joinPopup" class="modal1">
+  <div class="modal1-content">
+    <button class="close-btn1" id="joinClose">&times;</button>
+    <h2>Join Travely</h2><br><br>
+    <p ><a href="https://whatsapp.com/channel/0029Vb47qmR1iUxei5G5Cf3Z" id="channel">Whatsapp Channel</a></p>
+  </div>
+</div>
+
+
+
+
+<!-- More Info Popup -->
+<div id="infoPopup" class="modal1">
+  <div class="modal1-content">
+    <button class="close-btn1" id="infoClose">&times;</button>
+    <h2>More about R.K. Ashrama</h2><br>
+    <p>The Swami Vivekananda Memorial in Belagavi stands on the historical grounds of the house where Swami Vivekananda spent four days in 1892 during his visit to the region. Established in 2000, the ashrama serves as a center for both spiritual and cultural upliftment, nurturing the youth through various programs like Balak Sangha, Balika Sangha, and Yuvak Sangha, which promote moral values, cultural awareness, and spiritual growth.
+
+      The ashrama also focuses on community welfare by running an eye clinic and providing essential support to those in need through activities such as distributing ration kits, winter clothes, and offering financial, educational, and medical assistance. In its spiritual realm, the ashrama holds daily worship services, morning and evening bhajans, Ramnam Sankirtan, Japa Yajna, and regularly organized spiritual retreats, meditation classes, and discourses. It also commemorates the birthdays of the Holy Trio, which adds to the sacredness of the place.
+      
+      The Swami Vivekananda Memorial, located in the very house Swami Vivekananda stayed in, was restored and transformed into a memorial in 2019 after the Ramakrishna Mission took full charge in 2007. The mission’s restoration efforts preserved the house's historical significance, making it a tribute to Swami Vivekananda’s teachings. The Memorial offers an exhibition showcasing Swami Vivekananda’s life and Indian culture, along with computer training and classes in Spoken English, Sanskrit, and Yoga. The Memorial is also a hub for youth-focused activities, including lectures, conventions, and annual essay-writing, recitation, and elocution competitions.
+      
+      A temple shrine and Swami Vivekananda monument further enrich the spiritual experience at the memorial. The Swami Vivekananda Memorial and Ashrama serve as an educational, spiritual, and cultural landmark, honoring Swami Vivekananda’s legacy while benefiting the local community through its various program.</p>
+  </div>
+</div>
+
+
+
+
+ 
+
+
+  <!-- History-->
+  <section class="architecture-section">
+    
+    <div class="architecture-content">
+      
+      <h2 class="architecture-title">Activities</h2>
+     
+      <p class="architecture-description">
+        The ashram is dedicated to nurturing moral, cultural, and spiritual values among children and youth through various initiatives. Programs like Balak Sangha, Balika Sangha, and Yuvak Sangha help instill discipline, ethics, and spiritual awareness, shaping young minds with positive values.
+
+<br><br>Healthcare and Welfare Services :<br>
+The ashram actively engages in community welfare, extending support to those in need. It runs an eye clinic to provide essential eye care services. Additionally, it distributes ration kits, winter garments, and financial aid to underprivileged families. Medical and educational assistance is also provided to ensure better healthcare and learning opportunities for those who require support.
+
+<br><br>Religious and Spiritual Activities :<br>
+To promote spiritual well-being, the ashram conducts daily worship, morning and evening bhajans, and Ramnam Sankirtan. Devotees can participate in Japa Yajna, spiritual retreats, meditation sessions, and discourses that foster inner peace and self-growth. The ashram also celebrates the birth anniversaries of the Holy Trio, preserving their teachings and legacy through prayers and special programs.
+
+Through these activities, the ashram remains a center of service, spirituality, and community upliftment, enriching lives with knowledge, devotion, and compassion.
+
+</p>
+      
+    </div>
+  </section>
+
+
+  <section class="architecture-section">
+    
+    <div class="architecture-content">
+      
+      <h2 class="architecture-title">OverView</h2>
+     
+      <p class="architecture-description">
+        The Swami Vivekananda Memorial in Belagavi is located in the historic house where Swami Vivekananda stayed for four days during his visit in 1892. Established in 2000, this ashram has become a center of spiritual and cultural activities, with programs designed to instill moral, cultural, and spiritual values in children and youth through initiatives like Balak Sangha, Balika Sangha, and Yuvak Sangha. The ashram offers various welfare services, including an eye clinic, and provides ration kits, winter garments, and medical and educational aid to those in need.
+
+        In addition to these services, the ashram holds daily worship, bhajans, Ramnam Sankirtan, Japa Yajna, and spiritual retreats, and celebrates the birthdays of the Holy Trio. The Swami Vivekananda Memorial was inaugurated in 2019 after extensive restoration of the house where Swami Vivekananda stayed, further highlighting his lasting legacy in the region.
+        
+        The memorial houses a variety of educational and cultural activities, such as an exhibition on Swami Vivekananda and Indian culture, a computer training center, and classes in spoken English, Sanskrit, and Yogasana. The site also hosts lectures, conventions for youths and teachers, and annual competitions in essay writing, recitation, and elocution for students. Visitors can experience the teachings of Swami Vivekananda through religious activities, weekly lectures, and monthly retreats aimed at fostering spiritual growth and community service. The memorial and the ashram together stand as a tribute to Swami Vivekananda's ideals and continue to inspire and educate individuals in the pursuit of knowledge, spirituality, and service.
+      </p>
+      
+    </div>
+  </section>
+
+  <div class="modal">
+    <div class="modal-content">
+      <img id="modalImage" src="" alt="Modal Image">
+      <button class="close-btn">&times;</button>
+    </div>
+  </div>
+  
+
+
+   <!-- Footer -->
+   <footer>
+    <p>&copy; 2025 Travely. <br> Developed by Kishan Miskin<br>All Rights Reserved.</p>
+</footer>
+
+
+ 
+
+ 
+    
+
+ 
+</body>
+<script>
+  
+
+     // Nav Bar
+
+const toggleBtn = document.querySelector('.menu');
+const toggleBtnIcon = toggleBtn.querySelector('i');
+const dropDownMenu = document.querySelector('.dropdown-menu');
+
+toggleBtn.onclick = function () {
+dropDownMenu.classList.toggle('open');
+const isOpen = dropDownMenu.classList.contains('open');
+toggleBtnIcon.classList.toggle('fa-bars', !isOpen);
+toggleBtnIcon.classList.toggle('fa-xmark', isOpen);
+};
+
+// Nav Bar Ends
+const smallImages = document.querySelectorAll('.small-img-container img');
+const modal = document.querySelector('.modal');
+const modalImage = document.querySelector('#modalImage');
+const closeButton = document.querySelector('.close-btn');
+
+smallImages.forEach(img => {
+  img.addEventListener('click', () => {
+    modalImage.src = img.src;
+    modal.classList.add('show'); // Add animation class
+    modal.style.display = 'flex';
+  });
+});
+
+closeButton.addEventListener('click', () => {
+  modal.classList.remove('show'); // Remove animation class
+  setTimeout(() => {
+    modal.style.display = 'none';
+  }, 300); // Match the animation duration
+});
+
+
+
+
+let currentBackground = 0;
+const backgrounds = [
+  'mission-ashram.jpg',
+  'mission-ashram6.jpg',
+  'mission-ashram3.jpg',
+  'mission-ashram4.jpg'
+];
+
+const hero = document.querySelector('.hero');
+
+// Function to change the background with fade effect
+function changeBackground() {
+  // Add fade-out class to start fading out the hero element
+  hero.classList.add('fade-out');
+
+  // Wait for the fade-out to finish before changing the background
+  setTimeout(() => {
+    // Change the background image with the gradient overlay
+    currentBackground = (currentBackground + 1) % backgrounds.length;
+    hero.style.backgroundImage = `
+      linear-gradient(to top, rgba(0, 0, 0, 0) -10%, rgba(0, 0, 0, 0.359) -10%, rgba(0, 0, 0, 1) 100%),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.359) 80%, rgba(0, 0, 0, 1) 100%),
+      url('${backgrounds[currentBackground]}')`;
+    
+    // Remove fade-out class and add fade-in for smooth transition
+    hero.classList.remove('fade-out');
+    hero.classList.add('fade-in');
+  }, 1000); // Timeout duration should match the fade-out animation duration
+}
+
+// Set an interval to change the background every 5 seconds
+setInterval(changeBackground, 5000); // Change background every 5000 milliseconds (5 seconds)
+
+// Initial background change
+changeBackground();
+
+
+
+
+
+
+
+
+
+var joinPopup = document.getElementById("joinPopup");
+  var infoPopup = document.getElementById("infoPopup");
+
+  var playBtn = document.querySelector(".hero-btn.play");
+  var moreInfoBtn = document.querySelector(".hero-btn.more-info");
+
+  var joinClose = document.getElementById("joinClose");
+  var infoClose = document.getElementById("infoClose");
+
+  // When the "Join" button is clicked
+  playBtn.onclick = function() {
+    joinPopup.style.display = "block";
+  }
+
+  // When the "More Info" button is clicked
+  moreInfoBtn.onclick = function() {
+    infoPopup.style.display = "block";
+  }
+
+  // Close the "Join" popup when the "X" is clicked
+  joinClose.onclick = function() {
+    joinPopup.style.display = "none";
+  }
+
+  // Close the "More Info" popup when the "X" is clicked
+  infoClose.onclick = function() {
+    infoPopup.style.display = "none";
+  }
+
+  // Close the modals when clicking outside of them
+  window.onclick = function(event) {
+    if (event.target == joinPopup) {
+      joinPopup.style.display = "none";
+    } else if (event.target == infoPopup) {
+      infoPopup.style.display = "none";
+    }
+  }
+
+
+
+// Function to open a modal
+function openModal(modalId) {
+  var modal = document.getElementById(modalId);
+  var overlay = document.getElementById("overlay");
+
+  if (modal) {
+    modal.style.display = "flex"; // Show modal
+    overlay.style.display = "block"; // Show overlay
+    document.body.classList.add("modal-open");
+  }
+}
+
+// Function to close all modals
+function closeModal() {
+  var modals = document.querySelectorAll(".modal1");
+  var overlay = document.getElementById("overlay");
+
+  modals.forEach(modal => modal.style.display = "none");
+  overlay.style.display = "none";
+  document.body.classList.remove("modal-open");
+}
+
+// Event listeners for close buttons
+document.getElementById("joinClose").addEventListener("click", closeModal);
+document.getElementById("infoClose").addEventListener("click", closeModal);
+document.getElementById("overlay").addEventListener("click", closeModal);
+
+
+</script>
+</html>
